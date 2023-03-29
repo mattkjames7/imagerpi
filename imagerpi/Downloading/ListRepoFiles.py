@@ -6,7 +6,7 @@ import re
 
 #this is the base URL for the data
 url0 = 'https://cdaweb.gsfc.nasa.gov/pub/data/image/rpi/rpi_Ne_fp_along_orbit/rpi_electron_density_CDF/'
-urlo0 = 'https://cdaweb.gsfc.nasa.gov/pub/data/image/orbit/euv_orbit_cdf/'
+urlo0 = 'https://cdaweb.gsfc.nasa.gov/pub/data/image/orbit/def_or/'
 
 def _ExtractCDFs(fname):
 	'''
@@ -20,7 +20,7 @@ def _ExtractCDFs(fname):
 	#determine which lines contain a file name
 	use = np.zeros(nl,dtype='bool')
 	for i,l in enumerate(lines):
-		if '.cdf"' in l and 'image_electron_density_' in l:
+		if '.cdf"' in l and 'im_electron_density_' in l:
 			use[i] = True
 	keep = np.where(use)[0]
 	lines = lines[keep]
@@ -67,7 +67,7 @@ def _ExtractOrbitCDFs(fname):
 	#determine which lines contain a file name
 	use = np.zeros(nl,dtype='bool')
 	for i,l in enumerate(lines):
-		if '.cdf"' in l and 'image_or_euv_orbit_' in l:
+		if '.cdf"' in l and 'im_or_def_' in l:
 			use[i] = True
 	keep = np.where(use)[0]
 	lines = lines[keep]
@@ -108,7 +108,7 @@ def ListRepoFiles():
 
 	'''
 
-	years = np.arange(2000,2006)
+	years = np.arange(2001,2006)
 
 	#the temporary directory to store each html file in
 	tmpdir = Globals.DataPath + 'tmp/'
@@ -131,6 +131,7 @@ def ListRepoFiles():
 		dates = np.append(dates,d)
 		vers = np.append(vers,v)
 
+	print(cdfs)
 	return cdfs,urls,dates,vers
 
 

@@ -15,15 +15,17 @@ def ReadCDF(fname,Verbose=True):
 	f = cdflib.CDF(fname)
 	
 	#get the list of zVariables
-	var = f.cdf_info()['zVariables']
+	var = f.cdf_info()['zVariables'] + f.cdf_info()['rVariables']
 	
 	#create ouput dicts
 	data = {}
 	attr = {}
 	for v in var:
-		data[v] = f.varget(v)
-		attr[v] = f.varattsget(v)
-
+		try:
+			data[v] = f.varget(v)
+			attr[v] = f.varattsget(v)
+		except:
+			pass
 	#delete cdf (not sure if this is necessary - no idea if there is a close function)
 	del f
 	
